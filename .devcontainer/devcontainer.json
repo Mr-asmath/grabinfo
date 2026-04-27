@@ -1,0 +1,23 @@
+{
+  "name": "GrabInfo Django",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {}
+  },
+  "postCreateCommand": "pip install Django==5.0.7 django-jazzmin Pillow psycopg2-binary && python manage.py migrate",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "Django Server",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "batisteo.vscode-django"
+      ]
+    }
+  }
+}
