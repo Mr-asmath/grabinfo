@@ -1,0 +1,44 @@
+{% extends 'grab/layout/main.html' %}
+{% block title %}
+<title>Grabinfo | Search profile</title>
+{% endblock title %}
+{% block content %}
+{% include 'grab/inc/navbar.html' %}
+<section class="section-header section-header--search">
+    <div>
+        <span class="eyebrow">Discover creators</span>
+        <h1>Find people, profiles, and fresh energy</h1>
+        <p>Search the network and jump into creator profiles with one click.</p>
+    </div>
+</section>
+
+<form method="GET" action="{% url 'searchs' %}" class="search-shell">
+    <div class="search-box">
+        <ion-icon name="search-outline"></ion-icon>
+        <input type="text" name="profile" placeholder="Search profiles by username" value="{{ query_prof|default:'' }}">
+        <button type="submit" class="pill-button">Search</button>
+    </div>
+</form>
+
+<div class="discover-grid">
+    {% for profile in result %}
+    <div class="discover-card">
+        <img src="{{ profile.image.url }}" alt="{{ profile.user.username }}">
+        <h3>{{ profile.user.username }}</h3>
+        <p>{{ profile.bio|default:"No bio added yet." }}</p>
+        <div class="discover-card__stats">
+            <span>{{ profile.posts_total }} posts</span>
+            <span>{{ profile.followers_total }} followers</span>
+        </div>
+        <a href="{% url 'profile_view' profile.id %}" class="pill-button">View profile</a>
+    </div>
+    {% empty %}
+    <div class="empty-state empty-state--wide">
+        <ion-icon name="search-outline"></ion-icon>
+        <h3>No profiles found</h3>
+        <p>Try a different username or clear the search to browse everyone.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'grab/layout/main.html' %}
+{% load static %}
+
+{% block title %}
+<title>Grabinfo | Login</title>
+{% endblock title %}
+
+{% block content %}
+<section class="auth-shell">
+    <div class="auth-panel auth-panel--info">
+        <span class="eyebrow">Welcome back</span>
+        <h1>Step into the feed.</h1>
+        <p>Reconnect with creators, jump into live conversations, and publish your next visual story.</p>
+        <ul class="sidebar-list">
+            <li>Responsive feed and profile experience</li>
+            <li>Likes, follows, and comments</li>
+            <li>Modern visuals with smooth motion</li>
+        </ul>
+    </div>
+    <form method="POST" action="" class="auth-panel auth-form">
+        <img src="{% static 'images/formlogo.png' %}" alt="GrabInfo logo" class="auth-logo">
+        <h2>Log in</h2>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="Enter username" class="social-input">
+        </div>
+        <div class="mb-3">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Enter password" class="social-input">
+        </div>
+        <button type="submit" class="pill-button auth-submit">Login</button>
+        <p class="auth-switch">Create New Account? <a href="{% url 'signup' %}">Sign up</a></p>
+        <a href="{% url 'home' %}" class="auth-home-link">Back to home</a>
+    </form>
+</section>
+{% endblock content %}

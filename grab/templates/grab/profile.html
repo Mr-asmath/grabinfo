@@ -1,0 +1,58 @@
+<!-- profiles/templates/profiles/profile.html -->
+{% extends 'grab/layout/main.html' %}
+{% block title %}
+<title>Grabinfo | My Profile</title>
+{% endblock title %}
+{% block content %}
+{% include 'grab/inc/navbar.html' %}
+<section class="profile-hero">
+    <div class="profile-hero__main">
+        <img src="{{ profile_obj.image.url }}" alt="Profile Image" class="profile-hero__avatar">
+        <div>
+            <span class="eyebrow">Your space</span>
+            <h1>{{ request.user.username }}</h1>
+            <p>{{ profile_obj.bio|default:"Add a short bio to tell people what you create." }}</p>
+        </div>
+    </div>
+    <div class="profile-hero__stats">
+        <div class="stat-card">
+            <strong>{{ profile_posts_count }}</strong>
+            <span>Posts</span>
+        </div>
+        <div class="stat-card">
+            <strong>{{ profile_obj.followers_count }}</strong>
+            <span>Followers</span>
+        </div>
+        <div class="stat-card">
+            <strong>{{ profile_obj.following_count }}</strong>
+            <span>Following</span>
+        </div>
+    </div>
+    <div class="hero__actions">
+        <a href="{% url 'profile_edit' %}" class="pill-button">Edit profile</a>
+        <a href="{% url 'post_create' %}" class="pill-button pill-button--ghost">Create post</a>
+        <a href="{% url 'logout' %}" class="pill-button pill-button--ghost">Logout</a>
+    </div>
+</section>
+
+<section class="section-header">
+    <div>
+        <span class="eyebrow">Your activity</span>
+        <h2>Your latest posts</h2>
+    </div>
+</section>
+
+{% if profiledetail %}
+    <div class="feed-column">
+        {% for post in profiledetail %}
+            {% include 'grab/inc/post_card.html' %}
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <ion-icon name="images-outline"></ion-icon>
+        <h3>No posts yet</h3>
+        <p>Create your first post to turn this profile into a living feed.</p>
+    </div>
+{% endif %}
+{% endblock %}

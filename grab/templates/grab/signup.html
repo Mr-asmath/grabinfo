@@ -1,0 +1,57 @@
+{% extends 'grab/layout/main.html' %}
+{% load static %}
+
+{% block title %}
+<title>Grabinfo | Sign up</title>
+{% endblock title %}
+
+{% block content %}
+<section class="auth-shell">
+    <div class="auth-panel auth-panel--info">
+        <span class="eyebrow">Create your account</span>
+        <h1>Build a profile that feels alive.</h1>
+        <p>Publish posts, follow creators, comment on stories, and turn this starter into an actual social presence.</p>
+        <ul class="sidebar-list">
+            <li>Profile image and bio support</li>
+            <li>Topic-based content discovery</li>
+            <li>Interactive feed cards</li>
+        </ul>
+    </div>
+    <form method="POST" action="" class="auth-panel auth-form">
+        <img src="{% static 'images/formlogo.png' %}" alt="GrabInfo logo" class="auth-logo">
+        <h2>Sign up</h2>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Username</label>
+            {{ form.username }} 
+            {% if form.errors.username %}
+            <p class="field-error">{{ form.errors.username|striptags }}</p>
+            {% endif %}
+        </div> 
+        <div class="mb-3">
+            <label>Email</label>
+            {{ form.email }} 
+            {% if form.errors.email %}
+            <p class="field-error">{{ form.errors.email|striptags }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            {{ form.password1 }} 
+            {% if form.errors.password1 %}
+            <p class="field-error">{{ form.errors.password1|striptags }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label>Confirm password</label>
+            {{ form.password2 }} 
+            {% if form.errors.password2 %}
+            <p class="field-error">{{ form.errors.password2|striptags }}</p>
+            {% endif %}
+        </div>
+        <button type="submit" class="pill-button auth-submit">Sign up</button>
+        <p class="auth-switch">Already have an Account? <a href="{% url 'login' %}">Log in</a></p>
+        <a href="{% url 'home' %}" class="auth-home-link">Back to home</a>
+    </form>
+</section>
+{% endblock content %}

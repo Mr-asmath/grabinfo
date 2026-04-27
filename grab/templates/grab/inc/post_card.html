@@ -1,0 +1,80 @@
+<article class="feed-card">
+    <div class="feed-card__top">
+        <a href="{% url 'profile_view' post.profile.id %}" class="feed-card__author">
+            <img src="{{ post.profile.image.url }}" alt="{{ post.profile.user.username }} avatar" class="feed-card__avatar">
+            <div>
+                <p class="feed-card__username">{{ post.profile.user.username }}</p>
+                <p class="feed-card__meta">{{ post.topic.topic_name }} · {{ post.updated_at|date:"M d, Y · H:i" }}</p>
+            </div>
+        </a>
+        {% if request.user.is_authenticated and request.user.profile != post.profile %}
+        <form method="POST" action="{% url 'toggle_follow' post.profile.id %}">
+            {% csrf_token %}
+            <button type="submit" class="pill-button pill-button--ghost">
+                {% if post.is_following_author %}Following{% else %}Follow{% endif %}
+            </button>
+        </form>
+        {% endif %}
+        {% if request.user.is_authenticated and request.user.profile == post.profile %}
+        <a href="{% url 'delete' post.id %}" class="icon-button icon-button--danger" aria-label="Delete post">
+            <ion-icon name="trash-outline"></ion-icon>
+        </a>
+        {% endif %}
+    </div>
+
+    <p class="feed-card__content">{{ post.content }}</p>
+
+    <div class="feed-card__image-wrap">
+        <img src="{{ post.post_image.url }}" alt="Post image" class="feed-card__image">
+    </div>
+
+    <div class="feed-card__stats">
+        <span><ion-icon name="heart"></ion-icon> {{ post.likes_total|default:post.likes_count }} likes</span>
+        <span><ion-icon name="chatbubble-ellipses"></ion-icon> {{ post.comments_total|default:post.comments_count }} comments</span>
+    </div>
+
+    <div class="feed-card__actions">
+        {% if request.user.is_authenticated %}
+        <form method="POST" action="{% url 'toggle_like' post.id %}">
+            {% csrf_token %}
+            <button type="submit" class="action-button {% if post.is_liked %}action-button--active{% endif %}">
+                <ion-icon name="{% if post.is_liked %}heart{% else %}heart-outline{% endif %}"></ion-icon>
+                <span>{% if post.is_liked %}Liked{% else %}Like{% endif %}</span>
+            </button>
+        </form>
+        {% else %}
+        <a href="{% url 'login' %}" class="action-button">
+            <ion-icon name="heart-outline"></ion-icon>
+            <span>Like</span>
+        </a>
+        {% endif %}
+        <a href="#comments-{{ post.id }}" class="action-button">
+            <ion-icon name="chatbubble-outline"></ion-icon>
+            <span>Comment</span>
+        </a>
+    </div>
+
+    <div class="comments-panel" id="comments-{{ post.id }}">
+        {% if request.user.is_authenticated %}
+        <form method="POST" action="{% url 'add_comment' post.id %}" class="comment-form">
+            {% csrf_token %}
+            {{ post.comment_form.content }}
+            <button type="submit" class="pill-button">Post</button>
+        </form>
+        {% endif %}
+
+        {% if post.preview_comments %}
+            {% for comment in post.preview_comments %}
+            <div class="comment-item">
+                <img src="{{ comment.profile.image.url }}" alt="{{ comment.profile.user.username }} avatar" class="comment-item__avatar">
+                <div class="comment-item__body">
+                    <p><strong>{{ comment.profile.user.username }}</strong> {{ comment.content }}</p>
+                    <span>{{ comment.created_at|date:"M d, H:i" }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="empty-copy">No comments yet. Start the conversation.</p>
+        {% endif %}
+    </div>
+</article>

@@ -1,0 +1,82 @@
+
+{% extends 'grab/layout/main.html' %}
+{% block title %}
+<title>Grabinfo | Home</title>
+{% endblock title %}
+
+
+{% block content %}
+{% include 'grab/inc/navbar.html' %}
+<section class="hero hero--feed">
+    <div class="hero__copy">
+        <span class="eyebrow">Live social feed</span>
+        <h1>Share ideas, visuals, and conversations in one colorful stream.</h1>
+        <p>GrabInfo now behaves more like a real social app: discovery, profile identity, social actions, and interactive post cards.</p>
+        <div class="hero__actions">
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'post_create' %}" class="pill-button">Create a post</a>
+            <a href="{% url 'profile' %}" class="pill-button pill-button--ghost">My profile</a>
+            {% else %}
+            <a href="{% url 'signup' %}" class="pill-button">Join now</a>
+            <a href="{% url 'login' %}" class="pill-button pill-button--ghost">Sign in</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero__stats">
+        <div class="stat-card">
+            <strong>{{ total_posts }}</strong>
+            <span>Posts shared</span>
+        </div>
+        <div class="stat-card">
+            <strong>{{ total_creators }}</strong>
+            <span>Creators</span>
+        </div>
+        <div class="stat-card stat-card--wide">
+            <strong>Trending</strong>
+            <span>
+                {% for topic in trending_topics %}
+                    #{{ topic.topic_name }}{% if not forloop.last %} · {% endif %}
+                {% empty %}
+                    Start by creating your first topic.
+                {% endfor %}
+            </span>
+        </div>
+    </div>
+</section>
+
+<section class="topics-strip">
+    <a href="?" class="topic-chip topic-chip--label">Topics</a>
+    <a href="?" class="topic-chip {% if not selected_topic_id %}topic-chip--active{% endif %}">All</a>
+    {% for topic in topics %}
+    <a href="?topic={{ topic.id }}" class="topic-chip {% if selected_topic_id|stringformat:'s' == topic.id|stringformat:'s' %}topic-chip--active{% endif %}">
+        {{ topic.topic_name }}
+    </a>
+    {% endfor %}
+</section>
+
+<section class="feed-layout">
+    <div class="feed-column">
+        {% if posts %}
+            {% for post in posts %}
+                {% include 'grab/inc/post_card.html' %}
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <ion-icon name="sparkles-outline"></ion-icon>
+                <h3>No posts for this topic yet</h3>
+                <p>Switch the filter or publish something new to activate the feed.</p>
+            </div>
+        {% endif %}
+    </div>
+    <aside class="sidebar-card">
+        <span class="eyebrow">What changed</span>
+        <h3>More social, less static</h3>
+        <ul class="sidebar-list">
+            <li>Rich feed cards with likes and comments</li>
+            <li>Follow actions across profiles and posts</li>
+            <li>Modern color system, gradients, and motion</li>
+            <li>Responsive layout built for desktop and mobile</li>
+        </ul>
+    </aside>
+</section>
+{% endblock content %}

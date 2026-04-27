@@ -1,0 +1,59 @@
+{% load static %}
+<nav class="navbar social-navbar">
+    <div class="navbar-left">
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'images/logo.jpg' %}" alt="GrabInfo">
+            <div class="logo-copy">
+                <strong>GrabInfo</strong>
+                <span>social pulse</span>
+            </div>
+        </a>
+    </div>
+    <div class="navbar-center">
+        <a href="{% url 'home' %}" class="nav-icon">
+            <ion-icon name="home"></ion-icon>
+            <span>Feed</span>
+        </a>
+        <a href="{% url 'explore' %}" class="nav-icon">
+            <ion-icon name="compass"></ion-icon>
+            <span>Explore</span>
+        </a>
+        <a href="{% url 'activity' %}" class="nav-icon hide-mobile">
+            <ion-icon name="notifications"></ion-icon>
+            <span>Notifications</span>
+        </a>
+        <a href="{% url 'inbox' %}" class="nav-icon hide-mobile">
+            <ion-icon name="chatbubble-ellipses"></ion-icon>
+            <span>Messages</span>
+        </a>
+        <a href="{% url 'profile' %}" class="nav-icon hide-mobile">
+            <ion-icon name="person"></ion-icon>
+            <span>Profile</span>
+        </a>
+        <a href="{% url 'searchs' %}" class="nav-icon hide-mobile">
+            <ion-icon name="search"></ion-icon>
+            <span>Search</span>
+        </a>
+        <a href="{% url 'saved_posts' %}" class="nav-icon hide-mobile">
+            <ion-icon name="bookmark"></ion-icon>
+            <span>Saved</span>
+        </a>
+        <a href="{% url 'friends' %}" class="nav-icon hide-mobile">
+            <ion-icon name="people-circle"></ion-icon>
+            <span>Friends</span>
+        </a>
+        <a href="#" class="nav-icon more-btn" style="display:none;">
+            <ion-icon name="add-circle"></ion-icon>
+        </a>
+    </div>
+    <div class="navbar-right">
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'post_create' %}" class="pill-button navbar-cta">Create</a>
+        <a href="{% url 'profile' %}">
+            <img src="{{ request.user.profile.image.url }}" alt="Profile Image" class="profile-image">
+        </a>
+        {% else %}
+        <a href="{% url 'login' %}" class="join-us">JoinUs</a>
+        {% endif %}
+    </div>
+</nav>

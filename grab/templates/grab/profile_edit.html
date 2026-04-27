@@ -1,0 +1,37 @@
+<!-- profiles/templates/profiles/profile.html -->
+{% extends 'grab/layout/main.html' %}
+{% block title %}
+<title>Grabinfo | Edit Profile</title>
+{% endblock title %}
+{% block content %}
+<section class="editor-shell">
+  <div class="editor-card">
+    <span class="eyebrow">Profile editor</span>
+    <h1>Refine your identity.</h1>
+    <p>Update your image and bio so the feed feels personal, recognizable, and creator-first.</p>
+  </div>
+  <div class="editor-card editor-card--form">
+      <form method="POST" enctype="multipart/form-data" class="stack-form">
+        {% csrf_token %}
+        <div class="profile-preview">
+          <img src="{{ request.user.profile.image.url }}" class="profile-hero__avatar" alt="Profile Image">
+        </div>
+        <div class="identity-row">
+          <div>
+            <label>Username</label>
+            <p>{{ request.user.username }}</p>
+          </div>
+          <div>
+            <label>E-Mail</label>
+            <p>{{ request.user.email }}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          {{ p_form.as_p }}
+        </div>
+        <button type="submit" class="pill-button auth-submit">Save changes</button>
+      </form>
+  </div>
+</section>
+
+{% endblock %}

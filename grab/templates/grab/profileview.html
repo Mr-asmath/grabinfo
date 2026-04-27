@@ -1,0 +1,63 @@
+{% extends 'grab/layout/main.html' %}
+{% block title %}
+<title>Grabinfo | Users profile</title>
+{% endblock title %}
+
+
+{% block content %}
+{% include 'grab/inc/navbar.html' %}
+<section class="profile-hero profile-hero--public">
+    <div class="profile-hero__main">
+        <img src="{{ profile.image.url }}" alt="Profile Image" class="profile-hero__avatar">
+        <div>
+            <span class="eyebrow">Creator profile</span>
+            <h1>{{ profile.user.username }}</h1>
+            <p>{{ profile.bio|default:"This creator has not added a bio yet." }}</p>
+        </div>
+    </div>
+    <div class="profile-hero__stats">
+        <div class="stat-card">
+            <strong>{{ profile_posts_count }}</strong>
+            <span>Posts</span>
+        </div>
+        <div class="stat-card">
+            <strong>{{ profile.followers_count }}</strong>
+            <span>Followers</span>
+        </div>
+        <div class="stat-card">
+            <strong>{{ profile.following_count }}</strong>
+            <span>Following</span>
+        </div>
+    </div>
+    {% if request.user.is_authenticated and request.user.profile != profile %}
+    <div class="hero__actions">
+        <form method="POST" action="{% url 'toggle_follow' profile.id %}">
+            {% csrf_token %}
+            <button type="submit" class="pill-button">
+                {% if is_following %}Following{% else %}Follow {{ profile.user.username }}{% endif %}
+            </button>
+        </form>
+    </div>
+    {% endif %}
+</section>
+
+<section class="section-header">
+    <div>
+        <span class="eyebrow">Recent activity</span>
+        <h2>{{ profile.user.username }}'s latest posts</h2>
+    </div>
+</section>
+{% if posts %}
+    <div class="feed-column">
+        {% for post in posts %}
+            {% include 'grab/inc/post_card.html' %}
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <ion-icon name="planet-outline"></ion-icon>
+        <h3>No posts available</h3>
+        <p>This creator has not published anything yet.</p>
+    </div>
+{% endif %}
+{% endblock content %}
