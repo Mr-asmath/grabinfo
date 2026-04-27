@@ -1,0 +1,27 @@
+@'
+.git
+.gitignore
+.venv
+venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+.env
+*.db
+*.sqlite3
+.DS_Store
+coverage
+htmlcov
+.tox
+.vscode
+.idea
+media/
+staticfiles/
+'@ | Out-File -FilePath .dockerignore -Encoding utf8
