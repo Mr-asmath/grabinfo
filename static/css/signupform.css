@@ -1,0 +1,29 @@
+.auth-panel--info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
+    background:
+        linear-gradient(135deg, rgba(255, 107, 87, 0.12), rgba(77, 124, 255, 0.1)),
+        rgba(255, 255, 255, 0.84);
+}
+
+.auth-form {
+    align-content: start;
+}
+
+.auth-form .mb-3 {
+    display: grid;
+    gap: 8px;
+}
+
+.auth-home-link {
+    display: inline-block;
+    margin-top: 4px;
+}
+
+@media (max-width: 980px) {
+    .auth-panel--info {
+        order: 2;
+    }
+}

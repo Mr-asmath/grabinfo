@@ -1,0 +1,136 @@
+.social-navbar {
+    position: fixed;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(900px, calc(100% - 8px));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 24px rgba(31, 45, 79, 0.10);
+    z-index: 1000;
+}
+
+.navbar-left,
+.navbar-center,
+.navbar-right,
+.logo,
+.nav-icon {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-left,
+.navbar-right {
+    flex: 1;
+}
+
+.navbar-center {
+    gap: 8px;
+    justify-content: center;
+}
+
+.navbar-right {
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.logo {
+    gap: 12px;
+}
+
+.logo img {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.logo-copy {
+    display: grid;
+    line-height: 1.1;
+}
+
+.logo-copy strong {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1rem;
+}
+
+.logo-copy span {
+    color: var(--muted);
+    font-size: 0.82rem;
+    text-transform: lowercase;
+}
+
+.nav-icon {
+    gap: 8px;
+    min-height: 46px;
+    padding: 0 14px;
+    border-radius: 14px;
+    color: var(--muted);
+    transition: background 0.24s ease, color 0.24s ease, transform 0.24s ease;
+}
+
+.nav-icon ion-icon {
+    font-size: 1.15rem;
+}
+
+.nav-icon:hover {
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--text);
+    transform: translateY(-1px);
+}
+
+.profile-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.navbar-cta {
+    min-height: 44px;
+}
+
+@media (max-width: 860px) {
+    .logo-copy,
+    .nav-icon span,
+    .navbar-cta {
+        display: none;
+    }
+    .social-navbar {
+        width: calc(100% - 4px);
+        padding: 4px 4px;
+    }
+    .navbar-center {
+        gap: 0;
+    }
+    .nav-icon {
+        padding: 0 6px;
+    }
+    .nav-icon.hide-mobile {
+        display: none;
+    }
+    .nav-icon.more-btn {
+        display: flex;
+    }
+}
+
+@media (max-width: 520px) {
+    .social-navbar {
+        top: 10px;
+        border-radius: 20px;
+    }
+
+    .logo img,
+    .profile-image {
+        width: 42px;
+        height: 42px;
+    }
+}

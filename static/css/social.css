@@ -1,0 +1,38 @@
+/* Modern, animated styles for social media look */
+.friends-list, .messages-list, .notifications-list {
+  background: var(--panel);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 32px 24px;
+  margin: 32px auto;
+  max-width: 600px;
+  animation: fadeInUp 0.7s cubic-bezier(.23,1.01,.32,1) both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animated-like {
+  transition: transform 0.2s cubic-bezier(.23,1.01,.32,1), color 0.2s;
+}
+.animated-like.liked {
+  color: var(--brand-strong);
+  transform: scale(1.3) rotate(-10deg);
+}
+
+.animated-btn {
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(77,124,255,0.08);
+}
+.animated-btn:hover {
+  background: var(--brand-cool);
+  color: #fff;
+}
