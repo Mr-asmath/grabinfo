@@ -1,5 +1,10 @@
-# Create Dockerfile
-@'
+cd D:\program\python\grabinfo-main
+
+# Remove the bad Dockerfile if it exists
+Remove-Item Dockerfile -ErrorAction SilentlyContinue
+
+# Create correct Dockerfile
+@"
 # Use Python 3.11 slim image
 FROM python:3.11-slim
 
@@ -38,4 +43,4 @@ EXPOSE 8000
 
 # Start command
 CMD ["gunicorn", "grabinfo.wsgi:application", "--bind", "0.0.0.0:8000"]
-'@ | Out-File -FilePath Dockerfile -Encoding utf8
+"@ | Out-File -FilePath Dockerfile -Encoding utf8 -NoNewline
