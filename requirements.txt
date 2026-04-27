@@ -1,0 +1,1 @@
+Django==5.0.7\ndjango-jazzmin==3.0.1\nPillow==10.0.0\npsycopg2-binary==2.9.9\ngunicorn==21.2.0\npython-decouple==3.8\nwhitenoise==6.6.0\nflake8==6.1.0\npytest==7.4.3\npytest-django==4.7.0\ncoverage==7.3.2
